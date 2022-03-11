@@ -21,6 +21,9 @@
     "humbug/box": "^3.16"
   },
   "config": {
+    "platform": {
+      "php": "7.4.15"
+    },
     "allow-plugins": {
       "bamarni/composer-bin-plugin": true
     }
