@@ -1,0 +1,11 @@
+{
+  "output": "niu-api-connector.phar",
+  "directories": [
+    "src",
+    "vendor"
+  ],
+  "files": [
+    "niu-api-connector",
+    "index.php"
+  ]
+}

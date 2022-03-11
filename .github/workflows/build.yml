@@ -1,0 +1,35 @@
+name: PHAR build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "7.4"
+          coverage: "pcov"
+          ini-values: "zend.assertions=1"
+
+      - name: Prepare project
+        run: |
+          composer install
+
+      - name: build phar
+        run: |
+          ./vendor/bin/box compile
+
+      - name: Upload phar
+        uses: actions/upload-artifact@v2
+        with:
+          name: niu-api-connector.phar
+          path: niu-api-connector.phar
