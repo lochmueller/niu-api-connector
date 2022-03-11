@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lochmueller\NiuApiConnector;
 
 use Symfony\Component\Dotenv\Dotenv;
 
 class Configuration
 {
-
     protected $configurationOptions = [
         'NIU_EMAIL' => null,
         'NIU_PASSWORD' => null,
@@ -16,7 +17,7 @@ class Configuration
 
     public function get(): array
     {
-        $dotEnvPath = getcwd() . '/.env';
+        $dotEnvPath = getcwd().'/.env';
         if (file_exists($dotEnvPath)) {
             (new Dotenv())->load($dotEnvPath);
         }
@@ -25,9 +26,8 @@ class Configuration
             if (isset($_ENV[$key])) {
                 $this->configurationOptions[$key] = $_ENV[$key];
             }
-
         }
+
         return $this->configurationOptions;
     }
-
 }

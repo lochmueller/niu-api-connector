@@ -2,3 +2,4 @@
 /.env
 /.idea
 /*.phar
+/.php-cs-fixer.cache
