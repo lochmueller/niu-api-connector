@@ -1,14 +1,20 @@
 # NIU API Connector
 
-Easy to handle PHP based NIU API connector. 
-Idea based on https://github.com/volkerschulz/NIU-API.
+Easy to handle PHP based NIU API connector. Idea based on https://github.com/volkerschulz/NIU-API.
 
-## todo
+## Configuration
 
-- Phar building: https://github.com/shopwareLabs/psh#installation
-- Guzzle:
-- Documentation DotEnv Drop index.php?!?! (Box configuration)
-- Smaller package
+Options for your Env variables (e.g. ".env" file in the same directory).
+
+    NIU_EMAIL=
+    NIU_PASSWORD=
+    NIU_COUNTRY_CODE=
+    NIU_TOKEN_FILE=
+
+## Usage
+
+Install PHP (at least 7.4) on your machine and download the niu-api-connector.phar. Execute the file and follow the
+console instruction.
 
 ## Build phar by yourself
 
@@ -20,3 +26,7 @@ NIU API Connector can build itself. You need to clone the repository and install
     composer niu:build
 
 This will create the phar file in the current dir. The project itself requires PHP 7.4+.
+
+## todo
+
+- Smaller package

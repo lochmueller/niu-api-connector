@@ -1,5 +1,6 @@
 /vendor/
 /.env
+/auth.token
 /.idea
 /*.phar
 /.php-cs-fixer.cache
