@@ -21,6 +21,6 @@ class OverallTallyCommand extends AbstractNiuCommand
     {
         $output->writeln('TBD');
 
-        return 1;
+        return self::SUCCESS;
     }
 }

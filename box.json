@@ -7,5 +7,26 @@
   "files": [
     "niu-api-connector",
     "index.php"
+  ],
+  "blacklist": [
+    "humbug/",
+    "paragonie/",
+    "ulrichsg/getopt-php",
+    "theseer/tokenizer",
+    "thecodingmachine/safe",
+    "fidry/console",
+    "seld/jsonlint",
+    "phpunit/",
+    "amphp/",
+    "friendsofphp/php-cs-fixer",
+    "jetbrains/phpstorm-stubs",
+    "justinrainbow/json-schema",
+    "myclabs/deep-copy",
+    "nikic/",
+    "phar-io/",
+    "php-cs-fixer/",
+    "phpdocumentor/",
+    "phpspec/prophecy",
+    "sebastian/"
   ]
 }

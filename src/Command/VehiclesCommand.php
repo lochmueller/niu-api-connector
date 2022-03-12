@@ -39,16 +39,15 @@ class VehiclesCommand extends AbstractNiuCommand
         if (!isset($result->data)) {
             $output->writeln('Invalid request');
 
-            return 0;
+            return self::FAILURE;
         }
 
         $table = new Table($output);
-        $table
-            ->setHeaders(['SN', 'Name'])
+        $table->setHeaders(['SN', 'Name'])
             ->setRows(array_map(fn ($item) => [$item->sn, $item->name], $result->data))
         ;
         $table->render();
 
-        return 1;
+        return self::SUCCESS;
     }
 }

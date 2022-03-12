@@ -34,17 +34,17 @@ class AuthenticationCommand extends AbstractNiuCommand
         if (empty($email)) {
             $output->writeln('E-Mail is required');
 
-            return 0;
+            return self::FAILURE;
         }
         if (empty($password)) {
             $output->writeln('Password is required');
 
-            return 0;
+            return self::FAILURE;
         }
         if (empty($countryCode)) {
             $output->writeln('Country code is required');
 
-            return 0;
+            return self::FAILURE;
         }
 
         $arguments = http_build_query(['account' => $email, 'countryCode' => $countryCode, 'password' => $password]);
@@ -66,13 +66,13 @@ class AuthenticationCommand extends AbstractNiuCommand
         if (!isset($result->data->token)) {
             $output->writeln('Login not successful!');
 
-            return 0;
+            return self::FAILURE;
         }
 
         file_put_contents($tokenFile, $result->data->token);
 
         $output->writeln('Token is stored in your token file');
 
-        return 1;
+        return self::SUCCESS;
     }
 }
