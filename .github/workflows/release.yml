@@ -26,12 +26,6 @@ jobs:
       - name: build phar
         run: |
           ./vendor/bin/box compile
-
-      - name: Upload phar
-        uses: actions/upload-artifact@v2
-        with:
-          name: niu-api-connector.phar
-          path: niu-api-connector.phar
   release:
     runs-on: ubuntu-latest
     needs: [ build ]
@@ -44,6 +38,6 @@ jobs:
       - name: Create GitHub release
         uses: Roang-zero1/github-upload-release-artifacts-action@master
         with:
-          args: niu-api-connector.phar
+          args: "niu-api-connector.phar"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
