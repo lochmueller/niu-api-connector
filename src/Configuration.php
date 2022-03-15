@@ -17,9 +17,14 @@ class Configuration
 
     public function get(): array
     {
-        $dotEnvPath = getcwd().'/.env';
-        if (file_exists($dotEnvPath)) {
-            (new Dotenv())->load($dotEnvPath);
+        $dotEnvPaths = [
+            getcwd().'/.env',
+            \dirname(\Phar::running(false)).'/.env',
+        ];
+        foreach ($dotEnvPaths as $dotEnvPath) {
+            if (file_exists($dotEnvPath)) {
+                (new Dotenv())->load($dotEnvPath);
+            }
         }
 
         foreach (array_keys($this->configurationOptions) as $key) {
