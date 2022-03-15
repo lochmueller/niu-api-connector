@@ -6,7 +6,6 @@ namespace Lochmueller\NiuApiConnector\Command;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -36,17 +35,19 @@ class VehiclesCommand extends AbstractNiuCommand
 
         $result = json_decode($response->getBody()->getContents());
 
+        $formatter = $this->getFormatter($input);
         if (!isset($result->data)) {
-            $output->writeln('Invalid request');
+            $formatter->output($output, [['status' => 'error', 'message' => 'No data found in request']]);
 
             return self::FAILURE;
         }
 
-        $table = new Table($output);
-        $table->setHeaders(['SN', 'Name'])
-            ->setRows(array_map(fn ($item) => [$item->sn, $item->name], $result->data))
-        ;
-        $table->render();
+        $formatter->output($output, array_map(function ($item) {
+            $item = (array) $item;
+            unset($item['features']);
+
+            return $item;
+        }, (array) $result->data));
 
         return self::SUCCESS;
     }

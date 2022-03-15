@@ -21,7 +21,7 @@ class TracksCommand extends AbstractNiuCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln('TBD');
+        $output->writeln('no implemented yet');
 
         return self::SUCCESS;
     }

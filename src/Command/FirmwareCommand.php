@@ -35,13 +35,16 @@ class FirmwareCommand extends AbstractNiuCommand
 
         $response = $this->getClient()->send($request);
 
-        var_dump($response->getHeaders());
-
         $result = json_decode($response->getBody()->getContents());
 
-        var_dump($result);
+        $formatter = $this->getFormatter($input);
+        if (!isset($result->data)) {
+            $formatter->output($output, [['status' => 'error', 'message' => 'No firmware infos found']]);
 
-        $output->writeln('TBD');
+            return self::FAILURE;
+        }
+
+        $formatter->output($output, [(array) $result->data]);
 
         return self::SUCCESS;
     }

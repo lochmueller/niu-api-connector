@@ -22,6 +22,9 @@ class BatteryHealthCommand extends AbstractNiuCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $output->writeln('no implemented yet');
+
+        return self::SUCCESS;
         $request = new Request(
             'GET',
             'https://app-api-fk.niu.com/v3/motor_data/battery_info/health?sn='.$input->getArgument('serialNumber'),
@@ -35,7 +38,14 @@ class BatteryHealthCommand extends AbstractNiuCommand
 
         $result = json_decode($response->getBody()->getContents());
 
-        var_dump($result);
+        $formatter = $this->getFormatter($input);
+        if (!isset($result->data)) {
+            $formatter->output($output, [['status' => 'error', 'message' => 'No battery health infos found']]);
+
+            return self::FAILURE;
+        }
+
+        // var_dump((array)$result->data);
 
         $output->writeln('TBD');
 

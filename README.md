@@ -16,7 +16,7 @@ Options for your Env variables (e.g. ".env" file in the same directory).
 ## Usage
 
 Install PHP (at least 7.4) on your machine and download the niu-api-connector.phar. Execute the file and follow the
-console instruction.
+console instruction. Start executing `./niu-api-connector.phar` and follow the help instructions. Example `./niu-api-connector.phar help niu:authentication`.
 
 ## Build phar by yourself
 

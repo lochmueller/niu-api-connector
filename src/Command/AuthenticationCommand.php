@@ -63,15 +63,17 @@ class AuthenticationCommand extends AbstractNiuCommand
 
         $result = json_decode($response->getBody()->getContents());
 
+        $formatter = $this->getFormatter($input);
+
         if (!isset($result->data->token)) {
-            $output->writeln('Login not successful!');
+            $formatter->output($output, [['status' => 'error', 'message' => 'Login not successfully']]);
 
             return self::FAILURE;
         }
 
         file_put_contents($tokenFile, $result->data->token);
 
-        $output->writeln('Token is stored in your token file');
+        $formatter->output($output, [['status' => 'ok', 'message' => 'Login successfully. Token stored to '.$tokenFile]]);
 
         return self::SUCCESS;
     }

@@ -35,9 +35,41 @@ class BatteryCommand extends AbstractNiuCommand
 
         $result = json_decode($response->getBody()->getContents());
 
-        var_dump($result);
+        $formatter = $this->getFormatter($input);
+        if (!isset($result->data)) {
+            $formatter->output($output, [['status' => 'error', 'message' => 'No firmware infos found']]);
 
-        $output->writeln('TBD');
+            return self::FAILURE;
+        }
+
+        $data = (array) $result->data;
+        if (isset($data['batteries']->compartmentA->items)) {
+            unset($data['batteries']->compartmentA->items);
+        }
+        if (isset($data['batteries']->compartmentB->items)) {
+            unset($data['batteries']->compartmentB->items);
+        }
+
+        $batteries = [];
+        foreach ((array) $data['batteries'] as $battery) {
+            $battery = (array) $battery;
+            if (isset($battery['items'])) {
+                unset($battery['items']);
+            }
+
+            ksort($battery);
+            $battery['isCharging'] = null;
+            $battery['estimatedMileage'] = null;
+            $batteries[] = $battery;
+        }
+
+        $meta = array_combine(array_keys($batteries[0]), [null, null, null, null, null, null, null, null, null, null, null]);
+        $meta['isCharging'] = $data['isCharging'];
+        $meta['estimatedMileage'] = $data['estimatedMileage'];
+
+        $batteries[] = $meta;
+
+        $formatter->output($output, $batteries);
 
         return self::SUCCESS;
     }
