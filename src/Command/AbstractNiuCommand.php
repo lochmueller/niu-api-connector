@@ -56,4 +56,19 @@ abstract class AbstractNiuCommand extends Command
     {
         return new Client();
     }
+
+    protected function flattenArray(array $data): array
+    {
+        foreach ($data as $key => $value) {
+            if ($value instanceof \stdClass) {
+                $values = $this->flattenArray((array) $value);
+                foreach ($values as $innerKey => $innerValue) {
+                    $data[$key.'_'.$innerKey] = $innerValue;
+                }
+                unset($data[$key]);
+            }
+        }
+
+        return $data;
+    }
 }
