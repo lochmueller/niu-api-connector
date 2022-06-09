@@ -43,6 +43,10 @@ class BatteryCommand extends AbstractNiuCommand
         }
 
         $data = (array) $result->data;
+
+        if (!isset($data['batteries'])) {
+            return self::FAILURE;
+        }
         if (isset($data['batteries']->compartmentA->items)) {
             unset($data['batteries']->compartmentA->items);
         }
