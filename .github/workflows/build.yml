@@ -29,7 +29,7 @@ jobs:
           ./vendor/bin/box compile
 
       - name: Upload phar
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: niu-api-connector.phar
           path: niu-api-connector.phar
