@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Lochmueller\NiuApiConnector\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'niu:tracks')]
 class TracksCommand extends AbstractNiuCommand
 {
-    protected static $defaultName = 'niu:tracks';
-
     protected function configure(): void
     {
         parent::configure();

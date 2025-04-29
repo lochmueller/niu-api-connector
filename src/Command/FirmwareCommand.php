@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Lochmueller\NiuApiConnector\Command;
 
 use GuzzleHttp\Psr7\Request;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand(name: 'niu:firmware')]
 class FirmwareCommand extends AbstractNiuCommand
 {
-    protected static $defaultName = 'niu:firmware';
-
     protected function configure(): void
     {
         parent::configure();

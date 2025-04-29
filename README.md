@@ -29,10 +29,7 @@ This will create the phar file in the current dir. The project itself requires P
 
 ## Usage the docker image
 
-@todo
-
-echo "Open http://localhost:8080/cgi-bin/test.cgi"
-
-docker run --rm -it --name niu -p 8080:80 \
--v "$PWD/cgi-bin/":/usr/local/apache2/cgi-bin/ \
-httpd:2.4-alpine
+- Build the image in the docker folder.
+- Run `docker run --rm -it -p 9999:80 -e NIU_EMAIL="xxx" -e NIU_PASSWORD="xxx" -e NIU_COUNTRY_CODE="xxx" your-image`
+- Open http://localhost:8080/cgi-bin/authentication.sh
+- Open http://localhost:8080/cgi-bin/vehicles.sh
