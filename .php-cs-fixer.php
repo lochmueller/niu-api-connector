@@ -1,20 +1,22 @@
 <?php
 
 declare(strict_types=1);
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
 
-$finder = PhpCsFixer\Finder::create()
+$finder = Finder::create()
     ->ignoreDotFiles(false)
     ->ignoreVCSIgnored(true)
     ->exclude('vendor')
     ->in(__DIR__)
 ;
 
-$config = new PhpCsFixer\Config();
+$config = new Config();
 $config
     ->setRiskyAllowed(true)
     ->setRules([
-        '@PHP74Migration' => true,
-        '@PHP74Migration:risky' => true,
+        '@PHP82Migration' => true,
+        '@PHP82Migration:risky' => true,
         '@PhpCsFixer' => true,
         '@PhpCsFixer:risky' => true,
     ])

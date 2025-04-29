@@ -42,7 +42,7 @@ class VehiclesCommand extends AbstractNiuCommand
             return self::FAILURE;
         }
 
-        $formatter->output($output, array_map(function ($item) {
+        $formatter->output($output, array_map(static function ($item) {
             $item = (array) $item;
             unset($item['features']);
 
