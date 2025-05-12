@@ -15,10 +15,22 @@ use Symfony\Component\Console\Input\InputOption;
 
 abstract class AbstractNiuCommand extends Command
 {
+
+    protected $appId = 'niu_ktdrr960';
+
     protected function configure(): void
     {
         $this->addOption('format', 'f', InputOption::VALUE_REQUIRED, 'Output format. Valid formats are "json" and "cli". Default is "cli"', 'cli');
         $this->addOption('tokenFile', 'to', InputOption::VALUE_REQUIRED, 'Token file for auth token. Default is "./auth.token"', './auth.token');
+    }
+
+    protected function getDefaultHeaders(): array
+    {
+        return [
+            'Accept-Language' => 'en-US',
+            'User-Agent' => 'manager/4.10.4 (android; Unknown);brand=Unknown;model=Unknown;clientIdentifier=Overseas;lang=en-US',
+            'Content-Type' => 'application/json; charset=UTF-8',
+        ];
     }
 
     protected function getTokenFile(InputInterface $input): string
@@ -43,10 +55,10 @@ abstract class AbstractNiuCommand extends Command
 
     protected function getOptionInclFallback(InputInterface $input, string $optionName, string $envName): string
     {
-        $value = (string) $input->getOption($optionName);
+        $value = (string)$input->getOption($optionName);
         if (empty($value)) {
             $configuration = (new Configuration())->get();
-            $value = (string) $configuration[$envName];
+            $value = (string)$configuration[$envName];
         }
 
         return $value;
@@ -61,9 +73,9 @@ abstract class AbstractNiuCommand extends Command
     {
         foreach ($data as $key => $value) {
             if ($value instanceof \stdClass) {
-                $values = $this->flattenArray((array) $value);
+                $values = $this->flattenArray((array)$value);
                 foreach ($values as $innerKey => $innerValue) {
-                    $data[$key.'_'.$innerKey] = $innerValue;
+                    $data[$key . '_' . $innerKey] = $innerValue;
                 }
                 unset($data[$key]);
             }

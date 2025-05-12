@@ -47,14 +47,20 @@ class AuthenticationCommand extends AbstractNiuCommand
             return self::FAILURE;
         }
 
-        $arguments = http_build_query(['account' => $email, 'countryCode' => $countryCode, 'password' => $password]);
+        $arguments = json_encode([
+            'grant_type' => 'password',
+            'scope' => 'base',
+            'account' => $email,
+            'password' => md5($password),
+            'app_id' => 'niu_ktdrr960',
+        ]);
         $request = new Request(
             'POST',
-            'https://account-fk.niu.com/appv2/login',
-            [
-                'Accept-Language' => 'en-US',
-                'Content-Type' => 'application/x-www-form-urlencoded',
-            ],
+            'https://account-fk.niu.com/v3/api/oauth2/token',
+
+            array_merge($this->getDefaultHeaders(), [
+                'Content-Type' => 'application/json; charset=UTF-8',
+            ]),
             $arguments
         );
 
@@ -65,15 +71,15 @@ class AuthenticationCommand extends AbstractNiuCommand
 
         $formatter = $this->getFormatter($input);
 
-        if (!isset($result->data->token)) {
+        if (!isset($result->data->token->access_token)) {
             $formatter->output($output, [['status' => 'error', 'message' => 'Login not successfully']]);
 
             return self::FAILURE;
         }
 
-        file_put_contents($tokenFile, $result->data->token);
+        file_put_contents($tokenFile, $result->data->token->access_token);
 
-        $formatter->output($output, [['status' => 'ok', 'message' => 'Login successfully. Token stored to '.$tokenFile]]);
+        $formatter->output($output, [['status' => 'ok', 'message' => 'Login successfully. Token stored to ' . $tokenFile]]);
 
         return self::SUCCESS;
     }

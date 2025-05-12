@@ -14,6 +14,9 @@ class JsonFormat extends AbstractFormat
             return;
         }
 
+        if (is_array($data) && sizeof($data) === 1) {
+            $data = $data[0];
+        }
         $output->writeln(json_encode($data, JSON_PRETTY_PRINT));
     }
 }

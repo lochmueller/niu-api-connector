@@ -25,11 +25,10 @@ class FirmwareCommand extends AbstractNiuCommand
         $request = new Request(
             'POST',
             'https://app-api-fk.niu.com/motorota/getfirmwareversion',
-            [
-                'Accept-Language' => 'en-US',
-                'Token' => $this->getCurrentToken($input),
+            array_merge($this->getDefaultHeaders(), [
                 'Content-Type' => 'application/x-www-form-urlencoded',
-            ],
+                'Token' => $this->getCurrentToken($input)
+            ]),
             http_build_query(['sn' => $input->getArgument('serialNumber')]),
         );
 

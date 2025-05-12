@@ -24,14 +24,15 @@ class VehiclesCommand extends AbstractNiuCommand
         $request = new Request(
             'POST',
             'https://app-api-fk.niu.com/motoinfo/list',
-            [
-                'Accept-Language' => 'en-US',
-                'Token' => $this->getCurrentToken($input),
-            ]
+            array_merge(
+                $this->getDefaultHeaders(),
+                ['Token' => $this->getCurrentToken($input)]
+            )
         );
 
         $client = new Client();
         $response = $client->sendRequest($request);
+
 
         $result = json_decode($response->getBody()->getContents());
 
@@ -43,11 +44,11 @@ class VehiclesCommand extends AbstractNiuCommand
         }
 
         $formatter->output($output, array_map(static function ($item) {
-            $item = (array) $item;
+            $item = (array)$item;
             unset($item['features']);
 
             return $item;
-        }, (array) $result->data));
+        }, (array)$result->data));
 
         return self::SUCCESS;
     }

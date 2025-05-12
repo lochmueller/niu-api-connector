@@ -12,6 +12,8 @@ COPY cgi-bin /usr/local/apache2/cgi-bin
 
 RUN chmod +x /usr/local/apache2/cgi-bin/*.sh
 
+# Download https://github.com/lochmueller/niu-api-connector/actions/runs/14739037227/artifacts/3032416747
+
 # @todo
 
 # Benötigte Tools installieren (curl)

@@ -25,10 +25,9 @@ class MotorCommand extends AbstractNiuCommand
         $request = new Request(
             'GET',
             'https://app-api-fk.niu.com/v3/motor_data/index_info?sn='.$input->getArgument('serialNumber'),
-            [
-                'Accept-Language' => 'en-US',
-                'Token' => $this->getCurrentToken($input),
-            ]
+            array_merge($this->getDefaultHeaders(), [
+                'Token' => $this->getCurrentToken($input)
+            ]),
         );
 
         $response = $this->getClient()->send($request);
@@ -43,6 +42,7 @@ class MotorCommand extends AbstractNiuCommand
         }
 
         $data = (array) $result->data;
+
         if (isset($data['batteries']->compartmentA->batteryCharging, $data['batteries']->compartmentB->batteryCharging)) {
             $data['totalBatteryCharging'] = ($data['batteries']->compartmentA->batteryCharging + $data['batteries']->compartmentB->batteryCharging) / 2;
         }

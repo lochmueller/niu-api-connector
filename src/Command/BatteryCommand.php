@@ -25,10 +25,10 @@ class BatteryCommand extends AbstractNiuCommand
         $request = new Request(
             'GET',
             'https://app-api-fk.niu.com/v3/motor_data/battery_info?sn='.$input->getArgument('serialNumber'),
-            [
-                'Accept-Language' => 'en-US',
-                'Token' => $this->getCurrentToken($input),
-            ]
+            array_merge(
+                $this->getDefaultHeaders(),
+                ['Token' => $this->getCurrentToken($input)]
+            )
         );
 
         $response = $this->getClient()->send($request);

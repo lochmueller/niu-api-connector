@@ -17,8 +17,7 @@ class CliFormat extends AbstractFormat
 
         $table = new Table($output);
         $table->setHeaders(array_keys($data[0]))
-            ->setRows($data)
-        ;
+            ->setRows($data);
         $table->render();
     }
 }
